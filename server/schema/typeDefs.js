@@ -46,8 +46,6 @@ const typeDefs = `
         removeFriend(userId: ID!, friendId: ID!): User
         likePost(postId: ID!): Post
         likeComment(commentId: ID!): Comment
-        unlikePost(postId: ID!): Post
-        unlikeComment(commentId: ID!): Comment
     }
 `;
 
