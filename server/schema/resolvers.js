@@ -4,12 +4,23 @@ const { User } = require('../models');
 const resolvers = {
     Query: {
         me: async (parent, { username }) => {
-            return await User.findOne( { username: username })
-            .select('-__v -password');
+            if (!username) {
+                throw new Error('username is required!');
+            }
+            try {
+                return await User.findOne( { username: username })
+                .select('-__v -password');
+            }
+            catch (err) {
+                throw new Error('Failed to get user!');
+            }
         },
     },
     Mutation: {
         login: async (parent, { username, password }) => {
+            if (!username || !password) {
+                throw new Error('All fields are required!');
+            }
             const user = await User.findOne({ username });
             if (!user) {
                 throw new AuthenticationError('No user found with this username');
@@ -25,9 +36,12 @@ const resolvers = {
             return { token, user };
         },
         addUser: async (parent, {username, password}) => {
+            if (!username || !password) {
+                throw new Error('All fields are required!');
+            }
             const user = await User.create({username, password});
             if (!user) {
-                throw new Error('Something went wrong!');
+                throw new Error('Failed to create new user!');
             }
             const token = signToken(user);
             if (!token) {
@@ -36,27 +50,45 @@ const resolvers = {
             return { token, user };
         },
         addPost: async (parent, {userId, title, body, category}) => {
+            if (!userId || !title || !body || !category) {
+                throw new Error('All fields are required!');
+            }
             const post = await Post.create({userId, title, body, category});
             if (!post) {
-                throw new Error('Something went wrong!');
+                throw new Error('Failed to create post!');
             }
-            return post;
+            return { status: 'success', post };
         },
         addComment: async (parent, {postId, body, userId}) => {
+            if (!postId || !body || !userId) {
+                throw new Error('All fields are required!');
+            }
             const comment = await Comment.create({postId, body, userId});
             if (!comment) {
-                throw new Error('Something went wrong!');
+                throw new Error('Failed to create comment!');
             }
-            return comment;
+            return { status: 'success', comment };
         },
         addFriend: async (parent, {userId, friendId}) => {
+            if (!userId || !friendId) {
+                throw new Error('All fields are required!');
+            }
             const updatedUser = await User.findOneAndUpdate({ _id: userId }, { $addToSet: { friends: friendId } }, { new: true });
             if (!updatedUser) {
-                throw new Error('Something went wrong!');
+                throw new Error('Failed to add friend!');
             }
-            return updatedUser;
+            return { status: 'success', updatedUser };
         },
-        
+        removePost: async (parent, {postId}) => {
+            if (!postId) {
+                throw new Error('postId is required!');
+            }
+            const post = await Post.findOneAndDelete({ _id: postId });
+            if (!post) {
+                throw new Error('Failed to delete post!');
+            }
+            return { status: 'success', post };
+        },
     }
 };
 
