@@ -8,6 +8,14 @@ const commentsSchema = new mongoose.Schema({
     likes: {
         type: Number,
     },
+    userId: {
+        type: String,
+        required: true,
+    },
+    postId: {
+        type: String,
+        required: true,
+    }
 });
 
 const Comment = mongoose.model('Comment', commentsSchema);
