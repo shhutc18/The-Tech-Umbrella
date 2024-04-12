@@ -99,6 +99,10 @@ const resolvers = {
             if (!post) {
                 throw new Error('Failed to delete post!');
             }
+            const user = await User.findOneAndUpdate({ _id: post.userId }, { $pull: { posts: postId } }, { new: true });
+            if (!user) {
+                throw new Error('Failed to remove post from user!');
+            }
             return { status: 'success', post };
         },
     }
