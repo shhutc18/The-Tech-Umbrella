@@ -7,7 +7,7 @@ const typeDefs = `
     }
     type Post {
         _id: ID
-        text: String
+        title: String
         body: String
         userId: String
         comments: [Comment]
