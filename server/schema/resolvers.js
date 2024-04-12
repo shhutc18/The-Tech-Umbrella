@@ -185,6 +185,16 @@ const resolvers = {
             }
             return { status: 'success', post };
         },
+        unlikeComment: async (parent, {commentId}) => {
+            if (!commentId) {
+                throw new Error('commentId is required!');
+            }
+            const comment = await Comment.findOneAndUpdate({ _id: commentId }, { $inc: { likes: -1 } }, { new: true });
+            if (!comment) {
+                throw new Error('Failed to unlike comment!');
+            }
+            return { status: 'success', comment };
+        }
     }
 };
 
