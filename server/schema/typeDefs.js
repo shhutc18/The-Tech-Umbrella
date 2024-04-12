@@ -1,30 +1,30 @@
 const typeDefs = `
     type User {
-        _id: ID
-        username: String,
+        _id: ID!
+        username: String!,
         posts: [Post]
         comments: [Comment]
         friends: [ID]
     }
     type Post {
-        _id: ID
-        userId: String
-        title: String
-        body: String
-        category: String
+        _id: ID!
+        userId: ID!
+        title: String!
+        body: String!
+        category: String!
         comments: [Comment]
         likes: Int
     }
     type Comment {
-        _id: ID
-        postId: String
-        body: String
-        userId: String
+        _id: ID!
+        postId: ID!
+        body: String!
+        userId: ID!
         likes: Int
     }
     type Auth {
         token: ID!
-        user: User
+        user: User!
     }
     type Query {
         users: [User]
