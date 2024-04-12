@@ -1,0 +1,22 @@
+[
+    {
+        "username": "Shelby Hutchinson",
+        "email": "shelbyhutchinson@gmail.com",
+        "password": "password"
+    },
+    {
+        "username": "Chase Seeberger",
+        "email": "chaseseeberger@gmail.com",
+        "password": "password1"
+    },
+    {
+        "username": "Will Schickler",
+        "email": "willschickler@gmail.com",
+        "password": "password2"
+    },
+    {
+        "username": "Adam Mcmains",
+        "email": "adammcmains@gmail.com",
+        "password": "password3"
+    }
+]
