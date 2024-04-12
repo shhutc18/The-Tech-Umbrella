@@ -1,0 +1,34 @@
+[
+    {
+        "title": "This is a test post",
+        "userId": "Shelby Hutchinson",
+        "body": 0,
+        "likes": 0,
+        "comments": [],
+        "category": "Test"
+    },
+    {
+        "title": "This is a test post",
+        "userId": "Chase Seeberger",
+        "body": 0,
+        "likes": 0,
+        "comments": [],
+        "category": "Test"
+    },
+    {
+        "title": "This is a test post",
+        "userId": "Will Schickler",
+        "body": 0,
+        "likes": 0,
+        "comments": [],
+        "category": "Test"
+    },
+    {
+        "title": "This is a test post",
+        "userId": "Adam Mcmains",
+        "body": 0,
+        "likes": 0,
+        "comments": [],
+        "category": "Test"
+    }
+]
