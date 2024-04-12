@@ -91,6 +91,28 @@ const resolvers = {
             }
             return { status: 'success', updatedUser };
         },
+        removeUser: async (parent, {userId}) => {
+            if (!userId) {
+                throw new Error('userId is required!');
+            }
+            const user = await User.findOneAndDelete({ _id: userId });
+            if (!user) {
+                throw new Error('Failed to delete user!');
+            }
+            const posts = await Post.deleteMany({ userId });
+            if ((!posts || posts.deletedCount === 0) && user.posts.length > 0) {
+                throw new Error('Failed to delete user posts!');
+            }
+            const comments = await Comment.deleteMany({ userId });
+            if ((!comments || comments.deletedCount === 0) && user.comments.length > 0) {
+                throw new Error('Failed to delete user comments!');
+            }
+            const friends = await User.updateMany({ friends: userId }, { $pull: { friends: userId } });
+            if ((!friends || friends.nModified === 0) && user.friends.length > 0) {
+                throw new Error('Failed to remove user from friends!');
+            }
+            return { status: 'success', user };
+        },
         removePost: async (parent, {postId}) => {
             if (!postId) {
                 throw new Error('postId is required!');
