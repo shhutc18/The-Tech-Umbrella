@@ -15,6 +15,67 @@ const resolvers = {
                 throw new Error('Failed to get user!');
             }
         },
+        users: async () => {
+            try {
+                return await User.find()
+                .select('-__v -password');
+            }
+            catch (err) {
+                throw new Error('Failed to get users!');
+            }
+        },
+        category: async () => {
+            try {
+                return await Post.find( {category: category });
+            }
+            catch (err) {
+                throw new Error('Failed to get posts!');
+            }
+        },
+        mostLikedPosts: async () => {
+            try {
+                return await Post.find()
+                    .sort({ likes: -1 })
+                    .limit(10);
+            }
+            catch (err) {
+                throw new Error('Failed to get most liked posts!');
+            }
+        },
+        post: async (parent, { _id }) => {
+            if (!_id) {
+                throw new Error('_id is required!');
+            }
+            try {
+                return await Post.findOne( { _id: _id });
+            }
+            catch (err) {
+                throw new Error('Failed to get post!');
+            }
+        },
+        userPosts: async (parent, { userId }) => {
+            if (!userId) {
+                throw new Error('userId is required!');
+            }
+            try {
+                return await Post.find( { userId: userId });
+            }
+            catch (err) {
+                throw new Error('Failed to get user posts!');
+            }
+        },
+        userComments: async (parent, { userId }) => {
+            if (!userId) {
+                throw new Error('userId is required!');
+            }
+            try {
+                return await Comment.find( { userId: userId });
+            }
+            catch (err) {
+                throw new Error('Failed to get user comments!');
+            }
+        },
+        
     },
     Mutation: {
         login: async (parent, { username, password }) => {

@@ -29,10 +29,11 @@ const typeDefs = `
     type Query {
         users: [User]
         user(username: String!): User
-        posts: [Post]
+        category(category: String!): [Post]
+        mostLikedPosts: [Post]
         post(_id: ID!): Post
-        comments: [Comment]
-        comment(_id: ID!): Comment
+        userPosts(userId: ID!): [Post]
+        userComments(userId: ID!): [Comment]
     }
     type Mutation {
         login(username: String!, password: String!): Auth
