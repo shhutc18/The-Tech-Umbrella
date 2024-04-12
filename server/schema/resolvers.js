@@ -145,6 +145,16 @@ const resolvers = {
             }
             return { status: 'success', comment };
         },
+        removeFriend: async (parent, {userId, friendId}) => {
+            if (!userId || !friendId) {
+                throw new Error('All fields are required!');
+            }
+            const updatedUser = await User.findOneAndUpdate({ _id: userId }, { $pull: { friends: friendId } }, { new: true });
+            if (!updatedUser) {
+                throw new Error('Failed to remove friend!');
+            }
+            return { status: 'success', updatedUser };
+        },
     }
 };
 
