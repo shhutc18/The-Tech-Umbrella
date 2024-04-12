@@ -1,0 +1,30 @@
+[
+    {
+        "postText": "This is a test post",
+        "postAuthor": "Shelby Hutchinson",
+        "postDate": "04/11/2024",
+        "postLikes": 0,
+        "postComments": []
+    },
+    {
+        "postText": "This is a test post",
+        "postAuthor": "Chase Seeberger",
+        "postDate": "04/11/2024",
+        "postLikes": 0,
+        "postComments": []
+    },
+    {
+        "postText": "This is a test post",
+        "postAuthor": "Will Schickler",
+        "postDate": "04/11/2024",
+        "postLikes": 0,
+        "postComments": []
+    },
+    {
+        "postText": "This is a test post",
+        "postAuthor": "Adam Mcmains",
+        "postDate": "04/11/2024",
+        "postLikes": 0,
+        "postComments": []
+    }
+]
