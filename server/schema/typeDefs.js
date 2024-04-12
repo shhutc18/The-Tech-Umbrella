@@ -12,6 +12,7 @@ const typeDefs = `
         userId: String
         comments: [Comment]
         category: String
+        likes: Int
     }
     type Comment {
         _id: ID
