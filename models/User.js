@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Post = require('./Post')
+const Comment = require('./Comment')
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -15,7 +17,13 @@ const userSchema = new mongoose.Schema({
     password: {
         type: string,
         required: true,
-    } 
+    },
+    posts:{
+        type: [Post]
+    },
+    comments: {
+        type: [Comment]
+    },
 });
 
 const User = mongoose.model('User', userSchema);

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Comment = require('./Comment');
 
 const postSchema = new mongoose.Schema({
     title: {
@@ -8,6 +9,13 @@ const postSchema = new mongoose.Schema({
     body: {
         type: String,
         required: true,
+    },
+    userid: {
+        type: String,
+        required: true,
+    },
+    comments: {
+        type: [Comment]
     },
     category: {
         type: String,
