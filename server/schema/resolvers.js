@@ -1,5 +1,5 @@
 const { signToken } = require('../utils/auth');
-const { User } = require('../models');
+const { User, Post, Comment } = require('../models');
 
 const resolvers = {
     Query: {
@@ -57,6 +57,10 @@ const resolvers = {
             if (!post) {
                 throw new Error('Failed to create post!');
             }
+            const user = User.findOneAndUpdate({ _id: userId }, { $addToSet: { posts: post._id } }, { new: true });
+            if (!user) {
+                throw new Error('Failed to add post to user!');
+            }
             return { status: 'success', post };
         },
         addComment: async (parent, {postId, body, userId}) => {
@@ -66,6 +70,14 @@ const resolvers = {
             const comment = await Comment.create({postId, body, userId});
             if (!comment) {
                 throw new Error('Failed to create comment!');
+            }
+            const post = Post.findOneAndUpdate({ _id: postId }, { $addToSet: { comments: comment._id } }, { new: true });
+            if (!post) {
+                throw new Error('Failed to add comment to post!');
+            }
+            const user = User.findOneAndUpdate({ _id: userId }, { $addToSet: { comments: comment._id } }, { new: true });
+            if (!user) {
+                throw new Error('Failed to add comment to user!');
             }
             return { status: 'success', comment };
         },
