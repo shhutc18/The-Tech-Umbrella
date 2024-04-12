@@ -3,6 +3,7 @@ const typeDefs = `
         _id: ID
         username: String,
         posts: [Post]
+        comments: [Comment]
         friends: [ID]
     }
     type Post {
