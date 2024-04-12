@@ -26,6 +26,29 @@ const typeDefs = `
         token: ID!
         user: User
     }
-`
+    type Query {
+        users: [User]
+        user(username: String!): User
+        posts: [Post]
+        post(_id: ID!): Post
+        comments: [Comment]
+        comment(_id: ID!): Comment
+    }
+    type Mutation {
+        login(username: String!, password: String!): Auth
+        addUser(username: String!, password: String!): Auth
+        addPost(userId: ID!, title: String!, body: String!, category: String!): Post
+        addComment(postId: ID!, body: String!, userId: ID!): Comment
+        addFriend(userId: ID!, friendId: ID!): User
+        removeUser(userId: ID!): User
+        removePost(postId: ID!): Post
+        removeComment(commentId: ID!): Comment
+        removeFriend(userId: ID!, friendId: ID!): User
+        likePost(postId: ID!): Post
+        likeComment(commentId: ID!): Comment
+        unlikePost(postId: ID!): Post
+        unlikeComment(commentId: ID!): Comment
+    }
+`;
 
 module.exports = typeDefs;
