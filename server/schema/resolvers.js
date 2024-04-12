@@ -35,6 +35,28 @@ const resolvers = {
             }
             return { token, user };
         },
+        addPost: async (parent, {userId, title, body, category}) => {
+            const post = await Post.create({userId, title, body, category});
+            if (!post) {
+                throw new Error('Something went wrong!');
+            }
+            return post;
+        },
+        addComment: async (parent, {postId, body, userId}) => {
+            const comment = await Comment.create({postId, body, userId});
+            if (!comment) {
+                throw new Error('Something went wrong!');
+            }
+            return comment;
+        },
+        addFriend: async (parent, {userId, friendId}) => {
+            const updatedUser = await User.findOneAndUpdate({ _id: userId }, { $addToSet: { friends: friendId } }, { new: true });
+            if (!updatedUser) {
+                throw new Error('Something went wrong!');
+            }
+            return updatedUser;
+        },
+        
     }
 };
 

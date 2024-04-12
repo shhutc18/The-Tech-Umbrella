@@ -7,11 +7,11 @@ const typeDefs = `
     }
     type Post {
         _id: ID
+        userId: String
         title: String
         body: String
-        userId: String
-        comments: [Comment]
         category: String
+        comments: [Comment]
         likes: Int
     }
     type Comment {
