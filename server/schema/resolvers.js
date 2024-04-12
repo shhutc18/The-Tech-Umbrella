@@ -127,6 +127,24 @@ const resolvers = {
             }
             return { status: 'success', post };
         },
+        removeComment: async (parent, {commentId}) => {
+            if (!commentId) {
+                throw new Error('commentId is required!');
+            }
+            const comment = await Comment.findOneAndDelete({ _id: commentId });
+            if (!comment) {
+                throw new Error('Failed to delete comment!');
+            }
+            const post = await Post.findOneAndUpdate({ _id: comment.postId }, { $pull: { comments: commentId } }, { new: true });
+            if (!post) {
+                throw new Error('Failed to remove comment from post!');
+            }
+            const user = await User.findOneAndUpdate({ _id: comment.userId }, { $pull: { comments: commentId } }, { new: true });
+            if (!user) {
+                throw new Error('Failed to remove comment from user!');
+            }
+            return { status: 'success', comment };
+        },
     }
 };
 
