@@ -155,6 +155,36 @@ const resolvers = {
             }
             return { status: 'success', updatedUser };
         },
+        likePost: async (parent, {postId}) => {
+            if (!postId) {
+                throw new Error('postId is required!');
+            }
+            const post = await Post.findOneAndUpdate({ _id: postId }, { $inc: { likes: 1 } }, { new: true });
+            if (!post) {
+                throw new Error('Failed to like post!');
+            }
+            return { status: 'success', post };
+        },
+        likeComment: async (parent, {commentId}) => {
+            if (!commentId) {
+                throw new Error('commentId is required!');
+            }
+            const comment = await Comment.findOneAndUpdate({ _id: commentId }, { $inc: { likes: 1 } }, { new: true });
+            if (!comment) {
+                throw new Error('Failed to like comment!');
+            }
+            return { status: 'success', comment };
+        },
+        unlikePost: async (parent, {postId}) => {
+            if (!postId) {
+                throw new Error('postId is required!');
+            }
+            const post = await Post.findOneAndUpdate({ _id: postId }, { $inc: { likes: -1 } }, { new: true });
+            if (!post) {
+                throw new Error('Failed to unlike post!');
+            }
+            return { status: 'success', post };
+        },
     }
 };
 
