@@ -3,7 +3,7 @@ const { User, Post, Comment } = require('../models');
 
 const resolvers = {
     Query: {
-        me: async (parent, { username }) => {
+        user: async (parent, { username }) => {
             if (!username) {
                 throw new Error('username is required!');
             }
