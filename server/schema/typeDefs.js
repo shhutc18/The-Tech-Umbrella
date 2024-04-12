@@ -34,6 +34,7 @@ const typeDefs = `
         post(_id: ID!): Post
         userPosts(userId: ID!): [Post]
         userComments(userId: ID!): [Comment]
+        subscribedPosts(userId: ID!): [Post]
     }
     type Mutation {
         login(username: String!, password: String!): Auth

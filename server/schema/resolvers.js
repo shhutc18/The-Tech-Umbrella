@@ -75,7 +75,22 @@ const resolvers = {
                 throw new Error('Failed to get user comments!');
             }
         },
-        
+        subscribedPosts: async (parent, { userId }) => {
+            if (!userId) {
+                throw new Error('userId is required!');
+            }
+            try {
+                const user = await User.findOne( { _id: userId });
+                if (!user) {
+                    throw new Error('User not found!');
+                }
+                return await Post.find( { userId: { $in: user.friends } });
+            }
+            catch (err) {
+                throw new Error('Failed to get subscribed posts!');
+            }
+        }
+
     },
     Mutation: {
         login: async (parent, { username, password }) => {
