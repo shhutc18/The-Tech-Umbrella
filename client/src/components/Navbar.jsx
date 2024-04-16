@@ -26,7 +26,7 @@ const Navbar = () => {
 
   return (
     <div style={navbarStyle}>
-      <Link style={linkStyle} to="/">Home</Link> {/* Change to Link */}
+      <Link style={linkStyle} to="/Home">Home</Link> {/* Change to Link */}
       <Link style={linkStyle} to="/Login">Sign In</Link> {/* Change to Link */}
       <Link style={linkStyle} to="/Register">Register</Link> {/* Change to Link */}
     </div>
