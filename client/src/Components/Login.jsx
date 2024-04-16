@@ -20,7 +20,7 @@ const Login = () => {
     };
 
     return (
-        <div>
+        <div style={{border: '1px solid black', borderRadius: '10px', padding: '10px'}}>
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="email">Email:</label>
