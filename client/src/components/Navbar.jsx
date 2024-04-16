@@ -29,6 +29,7 @@ const Navbar = () => {
       <Link style={linkStyle} to="/Home">Home</Link> {/* Change to Link */}
       <Link style={linkStyle} to="/Login">Sign In</Link> {/* Change to Link */}
       <Link style={linkStyle} to="/Register">Register</Link> {/* Change to Link */}
+      <Link style={linkStyle} to="/MyProfile">My Profile</Link> {/* Change to Link */}
     </div>
   );
 };
