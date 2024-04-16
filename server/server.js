@@ -1,20 +1,18 @@
 const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
-const { expressMiddlewares } = require('./middlewares');
-const mongoose = require('mongoose');
-const { typeDefs, resolvers } = require('./graphql');
 const path = require('path');
-
-const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
+const { ApolloServer } = require('@apollo/server');
+const { expressMiddleware } = require('@apollo/server/express4');
+const { typeDefs, resolvers } = require('./schema');
+
 const PORT = process.env.PORT || 3001;
-const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: expressMiddlewares,
 });
+
+const app = express();
 
 const startAppolloServer = async () => {
   await server.start();
@@ -35,7 +33,7 @@ const startAppolloServer = async () => {
   db.once('open', () => {
     app.listen(PORT, () => {
       console.log(`🌍 Now listening on localhost:${PORT}`);
-      console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+      console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
     });
   });
   

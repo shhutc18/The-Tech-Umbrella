@@ -1,18 +1,18 @@
 const mongoose = require('mongoose');
+const path = require('path');
 const dotenv = require('dotenv');
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
-dotenv.config();
+const uri = process.env.MONGODB_URI;
+const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
 
-const connection = async () => {
+async function run() {
     try {
-        await mongoose.connect(process.env.MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        });
-        console.log('Connected to MongoDB');
+        await mongoose.connect(uri, clientOptions);
     } catch (error) {
         console.error(error);
     }
 }
-    
-module.exports = connection;
+run().catch(console.dir);
+
+module.exports = mongoose.connection;

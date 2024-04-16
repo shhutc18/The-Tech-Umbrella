@@ -4,25 +4,25 @@ const Comment = require('./Comment')
 
 const userSchema = new mongoose.Schema({
     username: {
-        type: string,
+        type: String,
         required: true,
         unique: true,
     },
     email: {
-        type: string,
+        type: String,
         required: true,
         unique: true,
         match: [/.+@.+\..+/, 'Must use a valid email address'],
     },
     password: {
-        type: string,
+        type: String,
         required: true,
     },
     posts:{
-        type: [Post]
+        type: [Post.schema]
     },
     comments: {
-        type: [Comment]
+        type: [Comment.schema]
     },
 });
 
