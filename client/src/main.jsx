@@ -13,8 +13,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: '/login', element: <Login /> },
-      { path: '/register', element: <Register /> }
-      { path: '/home', element: <Home />}
+      { path: '/register', element: <Register /> },
+      { path: '/home', element: <Home />},
     ],
     errorElement: <h1>404 Not Found</h1>
    },
