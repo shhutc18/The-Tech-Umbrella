@@ -89,6 +89,18 @@ const resolvers = {
             catch (err) {
                 throw new Error('Failed to get subscribed posts!');
             }
+        },
+        anonymousBrowse: async () => {
+            try {
+                return await Post.find()
+                    .select('-__v -userId')
+                    .populate('comments')
+                    .populate('likes')
+                    .sort({ likes: -1 })
+                    .limit(10);
+            } catch (err) {
+                throw new Error('Failed to get posts!');
+            }
         }
 
     },
