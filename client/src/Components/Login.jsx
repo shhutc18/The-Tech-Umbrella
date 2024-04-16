@@ -20,7 +20,7 @@ const Login = () => {
     };
 
     return (
-        <div>
+        <div style={{border: '1px solid black', borderRadius: '10px', padding: '10px'}}>
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="email">Email:</label>
@@ -41,6 +41,8 @@ const Login = () => {
 
                 <button type="submit">Login</button>
             </form>
+            <p>New to the Tech Umbrella? Register here!</p>
+            <button onClick={() => window.location.href = '/register'}>Register</button>
         </div>
     );
 };
