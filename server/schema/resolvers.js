@@ -111,11 +111,12 @@ const resolvers = {
             }
             return { token, user };
         },
-        addUser: async (parent, {username, password}) => {
-            if (!username || !password) {
+        // TODO: Add email validation
+        addUser: async (parent, {username, email, password}) => {
+            if (!username || !password || !email) {
                 throw new Error('All fields are required!');
             }
-            const user = await User.create({username, password});
+            const user = await User.create({username, email, password});
             if (!user) {
                 throw new Error('Failed to create new user!');
             }
