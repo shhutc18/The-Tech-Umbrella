@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const { typeDefs, resolvers } = require('./graphql');
 const path = require('path');
 
-const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
