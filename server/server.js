@@ -1,8 +1,6 @@
 const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
-const { expressMiddlewares } = require('./middlewares');
-const mongoose = require('mongoose');
-const { typeDefs, resolvers } = require('./graphql');
+const { ApolloServer } = require('@apollo/server');
+const { typeDefs, resolvers } = require('./schema');
 const path = require('path');
 
 const db = require('./config/connection');
@@ -12,7 +10,6 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: expressMiddlewares,
 });
 
 const startAppolloServer = async () => {
