@@ -41,6 +41,8 @@ const Login = () => {
 
                 <button type="submit">Login</button>
             </form>
+            <p>New to the Tech Umbrella? Register here!</p>
+            <button onClick={() => window.location.href = '/register'}>Register</button>
         </div>
     );
 };
