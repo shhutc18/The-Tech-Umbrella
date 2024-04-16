@@ -1,4 +1,9 @@
-body {
+html, body {
   margin: 0;
   padding: 0;
+  min-height: 100vh; /* This line ensures the minimum height is the full viewport height */
+  background-image: url('./assets/images/Desk.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }

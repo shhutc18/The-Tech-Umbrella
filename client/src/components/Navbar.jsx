@@ -26,10 +26,9 @@ const Navbar = () => {
 
   return (
     <div style={navbarStyle}>
-      <Link style={linkStyle} to="/">Home</Link> {/* Change to Link */}
+      <Link style={linkStyle} to="/Home">Home</Link> {/* Change to Link */}
       <Link style={linkStyle} to="/Login">Sign In</Link> {/* Change to Link */}
       <Link style={linkStyle} to="/Register">Register</Link> {/* Change to Link */}
-      <a style={linkStyle} href="https://docs.google.com/document/d/1x1crGquko9N9Ba6ol-8wlnwt3VkJVcHBfpbl0AHAa-w/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</a>
     </div>
   );
 };
