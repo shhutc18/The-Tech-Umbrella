@@ -1,50 +1,83 @@
-// this will act as the login page for the user
-
 import React, { useState } from 'react';
+import { Button, TextField, Paper, Typography, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: theme.spacing(2),
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+  const classes = useStyles();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // Perform login logic here
+    console.log('Logging in user:', email);
+    console.log(':', password);
+  };
 
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Perform login logic here
-    };
-
-    return (
-        <div style={{border: '1px solid black', borderRadius: '10px', padding: '10px'}}>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="email">Email:</label>
-                <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={handleEmailChange}
-                />
-
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={handlePasswordChange}
-                />
-
-                <button type="submit">Login</button>
-            </form>
-            <p>New to the Tech Umbrella? Register here!</p>
-            <button onClick={() => window.location.href = '/register'}>Register</button>
-        </div>
-    );
+  return (
+    <Paper className={classes.paper}>
+      <Typography component="h1" variant="h5">
+        Login
+      </Typography>
+      <form className={classes.form} onSubmit={handleLogin}>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email Address"
+          name="email"
+          autoComplete="email"
+          autoFocus
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Password"
+          type="password"
+          id="password"
+          autoComplete="current-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+        >
+          Login
+        </Button>
+      </form>
+      <Typography variant="body2" color="textSecondary" align="center">
+        New to The Tech Umbrella? <a href="/register">Register here!</a>
+      </Typography>
+    </Paper>
+  );
 };
 
 export default Login;
