@@ -15,7 +15,8 @@ const postSchema = new mongoose.Schema({
         required: true,
     },
     comments: {
-        type: [Comment]
+        type: [Comment.schema],
+        required: false,
     },
     category: {
         type: String,
