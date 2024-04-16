@@ -15,9 +15,8 @@ const Header = () => {
   };
 
   const h1Style = {
-    color: 'white', 
+    color: 'black', 
     padding: '10px',
-    marginLeft: '-75px',
     fontFamily: "'Work Sans', sans-serif",
   };
 
