@@ -29,7 +29,7 @@ const Navbar = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            <RouterLink to="/Home" className={classes.specialLink}>The Tech Umbrella</RouterLink>
+            <RouterLink to="/" className={classes.specialLink}>The Tech Umbrella</RouterLink>
           </Typography>
           <Button color="inherit">
             <RouterLink to="/Login" className={classes.link}>Sign In</RouterLink>
