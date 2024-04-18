@@ -95,7 +95,6 @@ const resolvers = {
         anonymousBrowse: async () => {
             try {
                 return await Post.find()
-                    .select('-__v -userId')
                     .populate('comments')
                     .populate('likes')
                     .sort({ likes: -1 })

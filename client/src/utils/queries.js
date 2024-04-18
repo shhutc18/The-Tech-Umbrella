@@ -177,22 +177,22 @@ query SubscribedPosts($userId: ID!) {
 `;
 
 export const GET_ANONYMOUS_POSTS = gql`
-query AnonymousBrowse {
-    anonymousBrowse {
+query Query {
+  anonymousBrowse {
+    _id
+    body
+    category
+    comments {
       _id
-      userId
-      title
       body
-      category
-      comments {
-        _id
-        postId
-        body
-        userId
-        likes
-      }
       likes
+      postId
+      userId
     }
+    likes
+    title
+    userId
   }
+}
 `;
 
