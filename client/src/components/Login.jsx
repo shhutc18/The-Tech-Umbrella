@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, TextField, Paper, Typography, makeStyles } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
+import Auth from '../utils/auth';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const classes = useStyles();
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  const [userFormData, setUserFormData] = useState({ username: '', password: '' });
   const [showAlert, setShowAlert] = useState(false);
 
   const [loginUser] = useMutation(LOGIN_USER);
@@ -33,11 +34,29 @@ const Login = () => {
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Perform login logic here
-    console.log('Logging in user:', email);
-    console.log(':', password);
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await loginUser({
+        variables: {
+          username: userFormData.username.toString(),
+          password: userFormData.password.toString(),
+        },
+      });
+
+      console.log(response);
+
+      Auth.login(response.data.login.token);
+    } catch (err) {
+      console.error(err);
+      setShowAlert(true);
+    }
+
+    setUserFormData({
+      username: '',
+      password: '',
+    });
   };
 
   return (
@@ -45,19 +64,22 @@ const Login = () => {
       <Typography component="h1" variant="h5">
         Login
       </Typography>
-      <form className={classes.form} onSubmit={handleLogin}>
+      <form className={classes.form} onSubmit={handleFormSubmit}>
+        <Typography variant="body1" gutterBottom>
+          {showAlert ? '🚨 Something went wrong with your login!' : ''}
+        </Typography>
         <TextField
           variant="outlined"
           margin="normal"
           required
           fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
+          id="username"
+          label="Username"
+          name="username"
+          autoComplete="username"
           autoFocus
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={userFormData.username}
+          onChange={handleInputChange}
         />
         <TextField
           variant="outlined"
@@ -69,8 +91,8 @@ const Login = () => {
           type="password"
           id="password"
           autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={userFormData.password}
+          onChange={handleInputChange}
         />
         <Button
           type="submit"

@@ -1,6 +1,7 @@
 import { makeStyles, Paper, Typography, List, ListItem, ListItemText, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
 import decode from 'jwt-decode';
 import { useEffect, useState } from 'react';
+import Auth from '../utils/auth';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -69,20 +70,17 @@ const Homepage = () => {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    console.log(token);
-    if (token && token !== 'undefined') {
-      const decoded = decode(token);
-      setUser(decoded);
+    if (Auth.loggedIn()) {
+      const token = decode(Auth.getToken());
+      setUser(token);
     } else {
-      const anonUser = {
-        username: 'Anonymous',
-        email: 'Anonymous',
-      };
-      setUser(anonUser);
+      console.log('User is not logged in');
     }
-    console.log(user);
   }, []);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
 
   return (
