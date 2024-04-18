@@ -52,35 +52,36 @@ users {
 `;
 
 export const GET_USER = gql`
-query User($username: String!) {
-    user(username: $username) {
+query Query($username: String!) {
+  user(username: $username) {
+    _id
+    username
+    email
+    friends
+    posts {
       _id
-      username
-      posts {
-        likes
-        _id
-        userId
-        title
-        body
-        category
-        comments {
-          _id
-          postId
-          body
-          userId
-          likes
-        }
-      }
+      body
+      category
       comments {
         _id
-        postId
         body
-        userId
         likes
+        postId
+        userId
       }
-      friends
+      likes
+      title
+      userId
+    }
+    comments {
+      body
+      _id
+      likes
+      postId
+      userId
     }
   }
+}
 `;
 
 export const Category = gql`
