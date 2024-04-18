@@ -1,7 +1,8 @@
 import { makeStyles, Paper, Typography, List, ListItem, ListItemText, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
-import decode from 'jwt-decode';
 import { useEffect, useState } from 'react';
 import Auth from '../utils/auth';
+import { useQuery } from '@apollo/client';
+import { GET_USER } from '../utils/queries';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -69,14 +70,15 @@ const Homepage = () => {
   const posts = ['Post 1', 'Post 2', 'Post 3'];
   const [user, setUser] = useState({});
 
-  useEffect(() => {
-    if (Auth.loggedIn()) {
-      const token = decode(Auth.getToken());
-      setUser(token);
-    } else {
-      console.log('User is not logged in');
-    }
-  }, []);
+  useQuery(GET_USER, {
+    variables: { username: Auth.getProfile().data.username },
+    onCompleted: (data) => {
+      setUser(data.user);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
 
   useEffect(() => {
     console.log(user);

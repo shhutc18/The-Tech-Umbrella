@@ -51,7 +51,7 @@ users {
 }
 `;
 
-export const User = gql`
+export const GET_USER = gql`
 query User($username: String!) {
     user(username: $username) {
       _id
