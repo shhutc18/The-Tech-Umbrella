@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const post = gql`
+export const GET_POST = gql`
     query Query($id: ID!) {
         post(_id: $id) {
         _id
@@ -19,7 +19,7 @@ export const post = gql`
         }
     }
 `;
-export const users = gql`
+export const GET_USERS = gql`
 query Users {
 users {
     _id
@@ -51,39 +51,40 @@ users {
 }
 `;
 
-export const User = gql`
-query User($username: String!) {
-    user(username: $username) {
+export const GET_USER = gql`
+query Query($username: String!) {
+  user(username: $username) {
+    _id
+    username
+    email
+    friends
+    posts {
       _id
-      username
-      posts {
-        likes
-        _id
-        userId
-        title
-        body
-        category
-        comments {
-          _id
-          postId
-          body
-          userId
-          likes
-        }
-      }
+      body
+      category
       comments {
         _id
-        postId
         body
-        userId
         likes
+        postId
+        userId
       }
-      friends
+      likes
+      title
+      userId
+    }
+    comments {
+      body
+      _id
+      likes
+      postId
+      userId
     }
   }
+}
 `;
 
-export const Category = gql`
+export const GET_CATEGORY = gql`
 query Category($category: String!) {
     category(category: $category) {
       _id
@@ -103,7 +104,7 @@ query Category($category: String!) {
   }
 `;
 
-export const MostLikedPosts = gql`
+export const GET_MOST_LIKED_POSTS = gql`
 query MostLikedPosts {
     mostLikedPosts {
       _id
@@ -123,7 +124,7 @@ query MostLikedPosts {
   }
 `;
 
-export const userPosts = gql`
+export const GET_USERS_POSTS = gql`
 query UserPosts($userId: ID!) {
     userPosts(userId: $userId) {
       _id
@@ -143,7 +144,7 @@ query UserPosts($userId: ID!) {
   }
 `;
 
-export const UserComments = gql`
+export const GET_USER_COMMENTS = gql`
 query UserComments($userId: ID!) {
     userComments(userId: $userId) {
       _id
@@ -155,7 +156,7 @@ query UserComments($userId: ID!) {
   }
 `;
 
-export const SubscribedPosts = gql`
+export const GET_USER_SUBSCRIBED_POSTS = gql`
 query SubscribedPosts($userId: ID!) {
     subscribedPosts(userId: $userId) {
       _id
@@ -175,7 +176,7 @@ query SubscribedPosts($userId: ID!) {
   }
 `;
 
-export const AnonymousBrowse = gql`
+export const GET_ANONYMOUS_POSTS = gql`
 query AnonymousBrowse {
     anonymousBrowse {
       _id
