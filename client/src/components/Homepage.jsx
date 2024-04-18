@@ -1,8 +1,9 @@
 import { makeStyles, Paper, Typography, List, ListItem, ListItemText, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import Auth from '../utils/auth';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_USER } from '../utils/queries';
+import { ADD_POST } from '../utils/mutations';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -53,17 +54,33 @@ const Homepage = () => {
   const [body, setBody] = useState('');
   const [category, setCategory] = useState('');
 
-  const handleCreatePost = () => {
+  const [savePost] = useMutation(ADD_POST);
+
+  const handlePostDialogOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handlePostDialogClose = () => {
     setOpen(false);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // handle post creation
-    setOpen(false);
+    console.log(title, body, category);
+    try {
+      const response = await savePost({
+        variables: {
+          userId: Auth.getProfile().data._id,
+          title: title,
+          body: body,
+          category: category,
+        },
+      });
+      console.log(response);
+      handlePostDialogClose();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const categories = ['Software', 'Hardware', 'Coding'];
@@ -87,10 +104,10 @@ const Homepage = () => {
 
   return (
     <Paper className={classes.paper}>
-      <Button variant="contained" color="primary" className={classes.createPostButton} onClick={handleCreatePost}>
+      <Button variant="contained" color="primary" className={classes.createPostButton} onClick={handlePostDialogOpen}>
         Create Post
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handlePostDialogClose}>
         <DialogTitle>Create Post</DialogTitle>
         <DialogContent className={classes.dialogContent}>
           <TextField
@@ -124,7 +141,7 @@ const Homepage = () => {
           </FormControl>
         </DialogContent>
         <DialogActions className={classes.dialogActions}>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handlePostDialogClose} color="primary">
             Cancel
           </Button>
           <Button onClick={handleSave} color="primary">
