@@ -146,7 +146,8 @@ const resolvers = {
             if (!post) {
                 throw new Error('Failed to create post!');
             }
-            const user = User.findOneAndUpdate({ _id: userId }, { $addToSet: { posts: post._id } }, { new: true });
+            console.log(post);
+            const user = await User.findOneAndUpdate({ _id: userId }, { $addToSet: { posts: post._id } }, { new: true });
             if (!user) {
                 throw new Error('Failed to add post to user!');
             }
