@@ -60,6 +60,7 @@ const Register = () => {
           password: userFormData.password.toString(),
         },
       });
+      console.log(response.data);
 
       Auth.login(response.data.addUser.token);
     } catch (err) {
