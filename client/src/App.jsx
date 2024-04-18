@@ -2,7 +2,6 @@
 import './App.css';
 import Navbar from "./components/Navbar.jsx";
 import { Outlet } from 'react-router-dom';
-
 import {
   ApolloClient,
   InMemoryCache,
@@ -12,7 +11,9 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
+  uri: window.location.hostname === 'the-tech-umbrella.onrender.com' 
+    ? 'https://the-tech-umbrella.onrender.com/graphql' 
+    : 'http://localhost:3001/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
