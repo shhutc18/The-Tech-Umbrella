@@ -5,15 +5,15 @@ import { LOGIN_USER } from '../utils/mutations';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    margin: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: theme.spacing(2),
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: 'rgba(218, 159, 245, 0.9)',
   },
   form: {
-    width: '100%',
+    width: '70%',
     marginTop: theme.spacing(1),
   },
   submit: {
