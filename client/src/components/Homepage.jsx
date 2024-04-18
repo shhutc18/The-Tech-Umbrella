@@ -1,7 +1,9 @@
 import { makeStyles, Paper, Typography, List, ListItem, ListItemText, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
-import decode from 'jwt-decode';
 import { useEffect, useState } from 'react';
 import Auth from '../utils/auth';
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_USER } from '../utils/queries';
+import { ADD_POST } from '../utils/mutations';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -52,31 +54,53 @@ const Homepage = () => {
   const [body, setBody] = useState('');
   const [category, setCategory] = useState('');
 
-  const handleCreatePost = () => {
+  const [savePost] = useMutation(ADD_POST);
+
+  const handlePostDialogOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handlePostDialogClose = () => {
     setOpen(false);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // handle post creation
-    setOpen(false);
+    try {
+      const userId = Auth.getProfile().data._id;
+      await savePost({
+        variables: {
+          userId: userId,
+          title: title,
+          body: body,
+          category: category,
+        },
+        onCompleted: (data) => {
+          setUser(data.addPost);
+        },
+        onError: (error) => {
+          console.error(error);
+        },
+      });
+      handlePostDialogClose();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const categories = ['Software', 'Hardware', 'Coding'];
   const posts = ['Post 1', 'Post 2', 'Post 3'];
   const [user, setUser] = useState({});
 
-  useEffect(() => {
-    if (Auth.loggedIn()) {
-      const token = decode(Auth.getToken());
-      setUser(token);
-    } else {
-      console.log('User is not logged in');
-    }
-  }, []);
+  useQuery(GET_USER, {
+    variables: { username: Auth.getProfile().data.username },
+    onCompleted: (data) => {
+      setUser(data.user);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
 
   useEffect(() => {
     console.log(user);
@@ -85,10 +109,10 @@ const Homepage = () => {
 
   return (
     <Paper className={classes.paper}>
-      <Button variant="contained" color="primary" className={classes.createPostButton} onClick={handleCreatePost}>
+      <Button variant="contained" color="primary" className={classes.createPostButton} onClick={handlePostDialogOpen}>
         Create Post
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handlePostDialogClose}>
         <DialogTitle>Create Post</DialogTitle>
         <DialogContent className={classes.dialogContent}>
           <TextField
@@ -122,7 +146,7 @@ const Homepage = () => {
           </FormControl>
         </DialogContent>
         <DialogActions className={classes.dialogActions}>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handlePostDialogClose} color="primary">
             Cancel
           </Button>
           <Button onClick={handleSave} color="primary">
