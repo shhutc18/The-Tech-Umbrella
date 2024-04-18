@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'rgba(255, 255, 255, 0.8)', // Translucent box
   },
   form: {
-    width: '100%',
+    width: '70%',
     marginTop: theme.spacing(1),
   },
   submit: {
