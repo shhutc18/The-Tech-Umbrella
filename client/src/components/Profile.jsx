@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
-import { makeStyles, Paper, Typography, Button, Menu, MenuItem, Card, CardContent } from '@material-ui/core';
+import { useEffect, useState } from 'react';
+import { makeStyles, Paper, Typography } from '@material-ui/core';
+import { useQuery } from '@apollo/client';
+import { GET_USER } from '../utils/queries';
+import Auth from '../utils/auth';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -25,60 +28,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Profile = ({ username }) => {
+const Profile = () => {
   const classes = useStyles();
+  const [user, setUser] = useState({});
 
-  // Replace with actual data
-  const friends = ['Friend 1', 'Friend 2', 'Friend 3'];
-  const posts = ['Post 1', 'Post 2', 'Post 3'];
+  useQuery(GET_USER, {
+    variables: { username: Auth.getProfile().data.username },
+    onCompleted: (data) => {
+      setUser(data.user);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
 
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
     <Paper className={classes.paper}>
       <Typography component="h1" variant="h5">
-        Welcome, {username}
+        Welcome, {user.username}
       </Typography>
-      <div className={classes.section}>
-        <Button color="primary" variant="contained" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-          My Friends
-        </Button>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          {friends.map((friend, index) => (
-            <MenuItem onClick={handleClose} key={index}>
-              {friend}
-            </MenuItem>
-          ))}
-        </Menu>
-      </div>
-      <div className={classes.section}>
-        <Typography variant="h6" gutterBottom className={classes.postHeader}>
-          - Take a look at your most recent posts - 
-        </Typography>
-        {posts.map((post, index) => (
-          <Card key={index} className={classes.postCard}>
-            <CardContent>
-              <Typography variant="body1">
-                {post}
-              </Typography>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
     </Paper>
   );
 };
