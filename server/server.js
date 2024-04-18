@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const db = require('./config/connection');
+const cors = require('cors');
 
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
@@ -14,6 +15,12 @@ const server = new ApolloServer({
 
 const app = express();
 
+// Use cors middleware and specify the origin
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://the-tech-umbrella.onrender.com/graphql', 'https://the-tech-umbrella.onrender.com/'], 
+  credentials: true,
+}));
+
 const startAppolloServer = async () => {
   await server.start();
 
@@ -21,6 +28,7 @@ const startAppolloServer = async () => {
   app.use(express.json());
 
   app.use('/graphql', expressMiddleware(server));
+
 
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/dist')));
