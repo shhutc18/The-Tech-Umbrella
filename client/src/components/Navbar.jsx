@@ -45,6 +45,12 @@ const Navbar = () => {
           <Typography variant="h6" className={classes.title}>
             <RouterLink to="/" className={classes.specialLink}>The Tech Umbrella</RouterLink>
           </Typography>
+          <Button color="inherit">
+            <RouterLink to="/Browse" className={classes.link}>Browse</RouterLink>
+          </Button>
+          <Button color="inherit">
+            <RouterLink to="/" className={classes.link}>Home</RouterLink>
+          </Button>
           {!user.username && 
             <Button color="inherit">
               <RouterLink to="/Login" className={classes.link}>Sign In</RouterLink>
@@ -53,11 +59,6 @@ const Navbar = () => {
           {!user.username &&
             <Button color="inherit">
               <RouterLink to="/Register" className={classes.link}>Register</RouterLink>
-            </Button>
-          }
-          {user.username && 
-            <Button color="inherit">
-              <RouterLink to="/" className={classes.link}>Home</RouterLink>
             </Button>
           }
           {user.username && 
