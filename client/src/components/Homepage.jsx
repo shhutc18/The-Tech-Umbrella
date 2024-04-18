@@ -68,7 +68,6 @@ const Homepage = () => {
     // handle post creation
     try {
       const userId = Auth.getProfile().data._id;
-      console.log(userId);
       await savePost({
         variables: {
           userId: userId,
@@ -77,7 +76,7 @@ const Homepage = () => {
           category: category,
         },
         onCompleted: (data) => {
-          console.log(data);
+          setUser(data.addPost);
         },
         onError: (error) => {
           console.error(error);
