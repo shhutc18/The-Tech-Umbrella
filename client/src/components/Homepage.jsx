@@ -2,7 +2,7 @@ import { makeStyles, Paper, Typography, List, ListItem, ListItemText, Button, Di
 import { useEffect, useState } from 'react';
 import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_USER } from '../utils/queries';
+import { GET_USER, GET_ANONYMOUS_POSTS } from '../utils/queries';
 import { ADD_POST } from '../utils/mutations';
 
 const useStyles = makeStyles((theme) => ({
@@ -53,7 +53,8 @@ const Homepage = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [category, setCategory] = useState('');
-
+  const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState({});
   const [savePost] = useMutation(ADD_POST);
 
   const handlePostDialogOpen = () => {
@@ -64,8 +65,8 @@ const Homepage = () => {
     setOpen(false);
   };
 
+  // handle post creation
   const handleSave = async () => {
-    // handle post creation
     try {
       const userId = Auth.getProfile().data._id;
       await savePost({
@@ -89,13 +90,21 @@ const Homepage = () => {
   };
 
   const categories = ['Software', 'Hardware', 'Coding'];
-  const posts = ['Post 1', 'Post 2', 'Post 3'];
-  const [user, setUser] = useState({});
 
   useQuery(GET_USER, {
     variables: { username: Auth.getProfile().data.username },
     onCompleted: (data) => {
       setUser(data.user);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
+  useQuery(GET_ANONYMOUS_POSTS, {
+    onCompleted: (data) => {
+      setPosts(data.posts);
+      console.log(posts);
     },
     onError: (error) => {
       console.error(error);
@@ -112,6 +121,7 @@ const Homepage = () => {
       <Button variant="contained" color="primary" className={classes.createPostButton} onClick={handlePostDialogOpen}>
         Create Post
       </Button>
+      {/* Create Post Dialog */}
       <Dialog open={open} onClose={handlePostDialogClose}>
         <DialogTitle>Create Post</DialogTitle>
         <DialogContent className={classes.dialogContent}>
@@ -154,6 +164,7 @@ const Homepage = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      {/* Browsing Posts */}
       <Typography component="h1" variant="h5" className={classes.welcomeText}>
         Welcome to The Tech Umbrella! Explore all blog posts here.
       </Typography>
