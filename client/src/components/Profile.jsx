@@ -1,5 +1,5 @@
-import React from 'react';
-import { makeStyles, Paper, Typography, List, ListItem, ListItemText } from '@material-ui/core';
+import React, { useState } from 'react';
+import { makeStyles, Paper, Typography, Button, Menu, MenuItem, Card, CardContent } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -14,43 +14,70 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
     width: '100%',
   },
+  postCard: {
+    marginTop: theme.spacing(2),
+  },
+  postHeader: {
+    color: 'darkblue',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: theme.spacing(2),
+  },
 }));
 
-const Profile = () => {
+const Profile = ({ username }) => {
   const classes = useStyles();
 
   // Replace with actual data
   const friends = ['Friend 1', 'Friend 2', 'Friend 3'];
   const posts = ['Post 1', 'Post 2', 'Post 3'];
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Paper className={classes.paper}>
       <Typography component="h1" variant="h5">
-        Current Profile: Logged In
+        Welcome, {username}
       </Typography>
       <div className={classes.section}>
-        <Typography variant="h6" gutterBottom>
+        <Button color="primary" variant="contained" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
           My Friends
-        </Typography>
-        <List>
+        </Button>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
           {friends.map((friend, index) => (
-            <ListItem key={index}>
-              <ListItemText primary={friend} />
-            </ListItem>
+            <MenuItem onClick={handleClose} key={index}>
+              {friend}
+            </MenuItem>
           ))}
-        </List>
+        </Menu>
       </div>
       <div className={classes.section}>
-        <Typography variant="h6" gutterBottom>
-          My Posts
+        <Typography variant="h6" gutterBottom className={classes.postHeader}>
+          - Take a look at your most recent posts - 
         </Typography>
-        <List>
-          {posts.map((post, index) => (
-            <ListItem key={index}>
-              <ListItemText primary={post} />
-            </ListItem>
-          ))}
-        </List>
+        {posts.map((post, index) => (
+          <Card key={index} className={classes.postCard}>
+            <CardContent>
+              <Typography variant="body1">
+                {post}
+              </Typography>
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </Paper>
   );
