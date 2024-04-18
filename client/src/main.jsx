@@ -6,6 +6,7 @@ import Login from './components/Login.jsx'
 import Register from './components/Register.jsx'
 import Home from './components/Homepage.jsx'
 import Profile from './components/Profile.jsx'
+import Browse from './components/Browse.jsx'
 
 const router = createBrowserRouter([
   { 
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       { path: '/register', element: <Register /> },
       { path: '/home', element: <Home />},
       { path: '/profile', element: <Profile />},
+      { path: '/browse', element: <Browse />}
     ],
     errorElement: <h1>404 Not Found</h1>
    },
