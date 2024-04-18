@@ -26,7 +26,7 @@ const resolvers = {
                 throw new Error('Failed to get users!');
             }
         },
-        category: async () => {
+        category: async (parent, {category}) => {
             try {
                 return await Post.find( {category: category });
             }
