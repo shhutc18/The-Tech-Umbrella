@@ -173,18 +173,13 @@ const Homepage = () => {
       <Typography component="h1" variant="h5" className={classes.welcomeText}>
         Welcome to The Tech Umbrella! Explore all blog posts here.
       </Typography>
-      {categories.map((category, index) => (
+      {posts > 0 && posts.map((post, index) => (
         <div className={classes.section} key={index}>
-          <Typography variant="h6" gutterBottom className={classes.categoryHeader}>
-            Posts you might like in: {category}
-          </Typography>
-          {posts > 0 && <List>
-            {posts.map((post, index) => (
+          <List>
               <ListItem key={index}>
-                <ListItemText primary={post} />
+                <ListItemText primary={post.title} />
               </ListItem>
-            ))}
-          </List>}
+          </List>
         </div>
       ))}
     </Paper>
