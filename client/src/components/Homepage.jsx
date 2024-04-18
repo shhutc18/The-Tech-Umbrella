@@ -66,17 +66,23 @@ const Homepage = () => {
 
   const handleSave = async () => {
     // handle post creation
-    console.log(title, body, category);
     try {
-      const response = await savePost({
+      const userId = Auth.getProfile().data._id;
+      console.log(userId);
+      await savePost({
         variables: {
-          userId: Auth.getProfile().data._id,
+          userId: userId,
           title: title,
           body: body,
           category: category,
         },
+        onCompleted: (data) => {
+          console.log(data);
+        },
+        onError: (error) => {
+          console.error(error);
+        },
       });
-      console.log(response);
       handlePostDialogClose();
     } catch (error) {
       console.error(error);
