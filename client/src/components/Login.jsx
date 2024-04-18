@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Button, TextField, Paper, Typography, makeStyles } from '@material-ui/core';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../utils/mutations';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -21,8 +23,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const classes = useStyles();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  const [showAlert, setShowAlert] = useState(false);
+
+  const [loginUser] = useMutation(LOGIN_USER);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();

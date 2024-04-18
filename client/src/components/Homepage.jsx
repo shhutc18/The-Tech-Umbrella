@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
 import { makeStyles, Paper, Typography, List, ListItem, ListItemText, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
+import decode from 'jwt-decode';
+import { useEffect, useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -65,6 +66,24 @@ const Homepage = () => {
 
   const categories = ['Software', 'Hardware', 'Coding'];
   const posts = ['Post 1', 'Post 2', 'Post 3'];
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    if (token && token !== 'undefined') {
+      const decoded = decode(token);
+      setUser(decoded);
+    } else {
+      const anonUser = {
+        username: 'Anonymous',
+        email: 'Anonymous',
+      };
+      setUser(anonUser);
+    }
+    console.log(user);
+  }, []);
+
 
   return (
     <Paper className={classes.paper}>
