@@ -9,8 +9,9 @@
     "concurrently": "^8.2.2"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
     "dotenv": "^16.4.5",
-    "react-router-dom": "^6.22.3",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "react-router-dom": "^6.22.3"
   }
 }
