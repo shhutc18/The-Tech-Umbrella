@@ -40,6 +40,9 @@ const Navbar = () => {
           <Button color="inherit">
             <RouterLink to="/Profile" className={classes.link}>My Profile</RouterLink>
           </Button>
+          <Button color="inherit">
+            <RouterLink to="/Browse" className={classes.link}>Browse</RouterLink>
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
