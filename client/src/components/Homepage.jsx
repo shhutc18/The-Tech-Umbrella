@@ -1,4 +1,4 @@
-import { makeStyles, Paper, Typography, List, ListItem, ListItemText, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
+import { makeStyles, Paper, Typography, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem, InputLabel, FormControl, Card, CardContent } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
@@ -33,16 +33,19 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   welcomeText: {
-    color: '#3f51b5', // Change this to your preferred color
+    color: '#3f51b5',
     fontWeight: 'bold',
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
   categoryHeader: {
-    color: '#3f51b5', // Change this to your preferred color
+    color: '#3f51b5',
     fontWeight: 'bold',
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
+  },
+  card: {
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -173,14 +176,20 @@ const Homepage = () => {
       <Typography component="h1" variant="h5" className={classes.welcomeText}>
         Welcome to The Tech Umbrella! Explore all blog posts here.
       </Typography>
-      {posts > 0 && posts.map((post, index) => (
-        <div className={classes.section} key={index}>
-          <List>
-              <ListItem key={index}>
-                <ListItemText primary={post.title} />
-              </ListItem>
-          </List>
-        </div>
+      {posts.length > 0 && posts.map((post, index) => (
+        <Card className={classes.card} key={index}>
+          <CardContent>
+            <Typography variant="h5" component="h2">
+              {post.title}
+            </Typography>
+            <Typography color="textSecondary">
+              {post.category}
+            </Typography>
+            <Typography variant="body2" component="p">
+              {post.body}
+            </Typography>
+          </CardContent>
+        </Card>
       ))}
     </Paper>
   );
