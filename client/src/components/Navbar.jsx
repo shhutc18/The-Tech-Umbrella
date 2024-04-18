@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Button, makeStyles } from '@material-ui/core';
 
@@ -39,7 +38,7 @@ const Navbar = () => {
             <RouterLink to="/Register" className={classes.link}>Register</RouterLink>
           </Button>
           <Button color="inherit">
-            <RouterLink to="/MyProfile" className={classes.link}>My Profile</RouterLink>
+            <RouterLink to="/Profile" className={classes.link}>My Profile</RouterLink>
           </Button>
         </Toolbar>
       </AppBar>
