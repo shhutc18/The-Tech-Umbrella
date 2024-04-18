@@ -103,17 +103,22 @@ const Homepage = () => {
 
   useQuery(GET_ANONYMOUS_POSTS, {
     onCompleted: (data) => {
-      setPosts(data.posts);
-      console.log(posts);
+      let posts = data.anonymousBrowse;
+      setPosts(posts);
     },
     onError: (error) => {
       console.error(error);
     },
   });
 
+  // logs user and posts for testing can remove when done
   useEffect(() => {
     console.log(user);
   }, [user]);
+
+  useEffect(() => {
+    console.log(posts);
+  }, [posts]);
 
 
   return (
