@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { makeStyles, Paper, Typography, List, ListItem, ListItemText, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import { useQuery } from '@apollo/client';
+import { GET_CATEGORY } from '../utils/queries';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,11 +33,25 @@ const useStyles = makeStyles((theme) => ({
 
 const Browse = () => {
   const classes = useStyles();
-
   const [category, setCategory] = useState('');
-
   const categories = ['Software', 'Hardware', 'Coding'];
-  const posts = ['Post 1', 'Post 2', 'Post 3'];
+  const [posts, setPosts] = useState([]);
+
+  useQuery(GET_CATEGORY, {
+    variables: { category },
+    onCompleted: (data) => {
+      let posts = data.category;
+      setPosts(posts);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  }, [category]);
+
+  // logs posts for testing can remove when done
+  useEffect(() => {
+    console.log(posts);
+  }, [posts]);
 
   return (
     <Paper className={classes.paper}>
@@ -54,20 +70,6 @@ const Browse = () => {
           ))}
         </Select>
       </FormControl>
-      {category && (
-        <div>
-          <Typography variant="h6" gutterBottom className={classes.categoryHeader}>
-            Posts in: {category}
-          </Typography>
-          <List>
-            {posts.map((post, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={post} />
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      )}
     </Paper>
   );
 };

@@ -85,23 +85,23 @@ query Query($username: String!) {
 `;
 
 export const GET_CATEGORY = gql`
-query Category($category: String!) {
-    category(category: $category) {
+query Query($category: String!) {
+  category(category: $category) {
+    _id
+    body
+    category
+    comments {
       _id
-      userId
-      title
       body
-      category
-      comments {
-        _id
-        postId
-        body
-        userId
-        likes
-      }
       likes
+      postId
+      userId
     }
+    likes
+    title
+    userId
   }
+}
 `;
 
 export const GET_MOST_LIKED_POSTS = gql`
