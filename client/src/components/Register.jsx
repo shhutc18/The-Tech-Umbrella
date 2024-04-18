@@ -23,10 +23,12 @@ const Register = () => {
   const classes = useStyles();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
 
   const handleRegister = () => {
     // Perform registration logic here
     console.log('Registering user:', username);
+    console.log('Email:', email);
     console.log('Password:', password);
   };
 
@@ -51,6 +53,18 @@ const Register = () => {
           autoFocus
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email Address"
+          name="email"
+          autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
           variant="outlined"
