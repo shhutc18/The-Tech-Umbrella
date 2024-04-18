@@ -173,13 +173,13 @@ const Homepage = () => {
           <Typography variant="h6" gutterBottom className={classes.categoryHeader}>
             Posts you might like in: {category}
           </Typography>
-          <List>
+          {posts > 0 && <List>
             {posts.map((post, index) => (
               <ListItem key={index}>
                 <ListItemText primary={post} />
               </ListItem>
             ))}
-          </List>
+          </List>}
         </div>
       ))}
     </Paper>
