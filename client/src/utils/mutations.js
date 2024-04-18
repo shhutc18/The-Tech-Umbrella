@@ -115,22 +115,35 @@ mutation Mutation($postId: ID!, $body: String!, $userId: ID!) {
 
 export const ADD_POST = gql`
 mutation Mutation($userId: ID!, $title: String!, $body: String!, $category: String!) {
-    addPost(userId: $userId, title: $title, body: $body, category: $category) {
+  addPost(userId: $userId, title: $title, body: $body, category: $category) {
+    _id
+    comments {
+      _id
+      body
+      likes
+      postId
+      userId
+    }
+    email
+    friends
+    posts {
       _id
       body
       category
       comments {
-        _id
-        body
-        likes
-        postId
         userId
+        postId
+        likes
+        body
+        _id
       }
-      likes
       title
+      likes
       userId
     }
+    username
   }
+}
 `;
 
 export const LIKE_COMMENT = gql`

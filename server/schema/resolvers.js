@@ -154,7 +154,7 @@ const resolvers = {
                 throw new Error('Failed to add post to user!');
             }
             console.log(user);
-            return { status: 'success', post };
+            return user;
         },
         addComment: async (parent, {postId, body, userId}) => {
             if (!postId || !body || !userId) {
