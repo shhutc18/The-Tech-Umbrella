@@ -3,12 +3,12 @@ import { Button, TextField, Paper, Typography, makeStyles } from '@material-ui/c
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    margin: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: theme.spacing(2),
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Translucent box
+    backgroundColor: 'rgba(218, 159, 245, 0.9)', // Translucent box
   },
   form: {
     width: '70%',
