@@ -1,4 +1,5 @@
-import { makeStyles, Paper, Typography, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem, InputLabel, FormControl, Card, CardContent } from '@material-ui/core';
+import { makeStyles, Paper, Typography, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem, InputLabel, FormControl, Card, CardContent, IconButton, List, ListItem, ListItemText } from '@material-ui/core';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import { useEffect, useState } from 'react';
 import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
@@ -46,6 +47,21 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     marginTop: theme.spacing(2),
+  },
+  likeButton: {
+    color: 'red',
+  },
+  commentSection: {
+    marginTop: theme.spacing(2),
+  },
+  commentForm: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  commentInput: {
+    flex: 1,
+    marginRight: theme.spacing(2),
   },
 }));
 
@@ -177,20 +193,40 @@ const Homepage = () => {
         Welcome to The Tech Umbrella! Explore all blog posts here.
       </Typography>
       {posts.length > 0 && posts.map((post, index) => (
-        <Card className={classes.card} key={index}>
-          <CardContent>
-            <Typography variant="h5" component="h2">
-              {post.title}
-            </Typography>
-            <Typography color="textSecondary">
-              {post.category}
-            </Typography>
-            <Typography variant="body2" component="p">
-              {post.body}
-            </Typography>
-          </CardContent>
-        </Card>
-      ))}
+  <Card className={classes.card} key={index}>
+    <CardContent>
+      <Typography variant="h5" component="h2">
+        {post.title}
+      </Typography>
+      <Typography color="textSecondary">
+        {post.category}
+      </Typography>
+      <Typography variant="body2" component="p">
+        {post.body}
+      </Typography>
+      <Typography variant="body2" color="textSecondary">
+        Author: {post.author}
+      </Typography>
+      <IconButton className={classes.likeButton}>
+        <FavoriteIcon />
+      </IconButton>
+      <Typography variant="body2" component="div" className={classes.commentSection}>
+        <Typography variant="h6">Comments</Typography>
+        {post.comments.map((comment, index) => (
+          <List key={index}>
+            <ListItem>
+              <ListItemText primary={comment.text} />
+            </ListItem>
+          </List>
+        ))}
+        <form className={classes.commentForm}>
+          <TextField label="New Comment" className={classes.commentInput} />
+          <Button variant="contained" color="primary" type="submit">Submit</Button>
+        </form>
+      </Typography>
+    </CardContent>
+  </Card>
+))}
     </Paper>
   );
 };
