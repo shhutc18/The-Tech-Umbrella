@@ -9,7 +9,9 @@ const resolvers = {
             }
             try {
                 return await User.findOne( { username: username })
-                .select('-__v -password');
+                .select('-__v -password')
+                .populate('posts')
+                .populate('comments');
             }
             catch (err) {
                 throw new Error('Failed to get user!');
@@ -146,11 +148,13 @@ const resolvers = {
             if (!post) {
                 throw new Error('Failed to create post!');
             }
-            const user = User.findOneAndUpdate({ _id: userId }, { $addToSet: { posts: post._id } }, { new: true });
+            console.log(post);
+            const user = await User.findOneAndUpdate({ _id: userId }, { $addToSet: { posts: post } }, { new: true });
             if (!user) {
                 throw new Error('Failed to add post to user!');
             }
-            return { status: 'success', post };
+            console.log(user);
+            return user;
         },
         addComment: async (parent, {postId, body, userId}) => {
             if (!postId || !body || !userId) {
