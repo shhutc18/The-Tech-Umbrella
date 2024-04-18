@@ -61,8 +61,6 @@ const Register = () => {
         },
       });
 
-      console.log(response);
-
       Auth.login(response.data.addUser.token);
     } catch (err) {
       console.error(err);
