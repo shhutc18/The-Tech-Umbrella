@@ -8,7 +8,7 @@ const commentsSchema = new mongoose.Schema({
     likes: {
         type: Number,
     },
-    userId: {
+    username: {
         type: String,
         required: true,
     },

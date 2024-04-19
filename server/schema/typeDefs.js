@@ -20,7 +20,7 @@ const typeDefs = `
         _id: ID!
         postId: ID!
         body: String!
-        userId: ID!
+        username: String!
         likes: Int
     }
     type Auth {
@@ -42,7 +42,7 @@ const typeDefs = `
         login(username: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
         addPost(userId: ID!, title: String!, body: String!, category: String!): User
-        addComment(postId: ID!, body: String!, userId: ID!): Comment
+        addComment(postId: ID!, body: String!, username: String!): Comment
         addFriend(userId: ID!, friendId: ID!): User
         removeUser(userId: ID!): User
         removePost(postId: ID!): Post
