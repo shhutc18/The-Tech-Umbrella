@@ -158,11 +158,11 @@ const resolvers = {
             }
             return user;
         },
-        addComment: async (parent, {postId, body, userId}) => {
-            if (!postId || !body || !userId) {
+        addComment: async (parent, {postId, body, username}) => {
+            if (!postId || !body || !username) {
                 throw new Error('All fields are required!');
             }
-            const comment = await Comment.create({postId, body, userId});
+            const comment = await Comment.create({postId, body, username});
             if (!comment) {
                 throw new Error('Failed to create comment!');
             }
@@ -170,7 +170,7 @@ const resolvers = {
             if (!post) {
                 throw new Error('Failed to add comment to post!');
             }
-            const user = await User.findOneAndUpdate({ _id: userId }, { $addToSet: { comments: comment } }, { new: true });
+            const user = await User.findOneAndUpdate({ username: username }, { $addToSet: { comments: comment } }, { new: true });
             if (!user) {
                 throw new Error('Failed to add comment to user!');
             }

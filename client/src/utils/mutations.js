@@ -70,13 +70,13 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_COMMENT = gql`
-mutation Mutation($postId: ID!, $body: String!, $userId: ID!) {
-  addComment(postId: $postId, body: $body, userId: $userId) {
+mutation Mutation($postId: ID!, $body: String!, $username: String!) {
+  addComment(postId: $postId, body: $body, username: $username) {
     _id
     body
     likes
     postId
-    userId
+    username
   }
 }
 `;

@@ -116,7 +116,7 @@ const Homepage = () => {
       variables: {
         postId: post._id,
         body: commentBody,
-        userId: user._id,
+        username: user.username,
       },
       onCompleted: (data) => {
         setUser(data.addPost);
@@ -235,7 +235,7 @@ const Homepage = () => {
         {post.comments.map((comment, index) => (
           <List key={index}>
             <ListItem>
-              <ListItemText primary={comment.text} />
+              <ListItemText primary={comment.body} />
             </ListItem>
           </List>
         ))}

@@ -20,7 +20,7 @@ const typeDefs = `
         _id: ID!
         postId: ID!
         body: String!
-        userId: ID!
+        username: String!
         likes: Int
     }
     type Auth {
