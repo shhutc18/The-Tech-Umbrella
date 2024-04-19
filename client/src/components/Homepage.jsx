@@ -241,7 +241,7 @@ const Homepage = () => {
       ))}
       </div>
     </Paper>
-  );
-}
+    );
+  }
 
 export default Homepage;
