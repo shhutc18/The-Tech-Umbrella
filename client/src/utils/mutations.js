@@ -71,15 +71,15 @@ export const LOGIN_USER = gql`
 
 export const ADD_COMMENT = gql`
 mutation Mutation($postId: ID!, $body: String!, $userId: ID!) {
-    addComment(postId: $postId, body: $body, userId: $userId) {
-      _id
-      body
-      likes
-      postId
-      userId
-    }
+  addComment(postId: $postId, body: $body, userId: $userId) {
+    _id
+    body
+    likes
+    postId
+    userId
   }
-  `;
+}
+`;
 
   export const ADD_FRIEND = gql`
   mutation Mutation($userId: ID!, $friendId: ID!) {

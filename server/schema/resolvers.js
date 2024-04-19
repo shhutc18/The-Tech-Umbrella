@@ -10,7 +10,12 @@ const resolvers = {
             try {
                 return await User.findOne( { username: username })
                 .select('-__v -password')
-                .populate('posts')
+                .populate({
+                    path: 'posts',
+                    populate: {
+                        path: 'comments',
+                    },
+                })
                 .populate('comments');
             }
             catch (err) {
@@ -147,12 +152,10 @@ const resolvers = {
             if (!post) {
                 throw new Error('Failed to create post!');
             }
-            console.log(post);
             const user = await User.findOneAndUpdate({ _id: userId }, { $addToSet: { posts: post } }, { new: true });
             if (!user) {
                 throw new Error('Failed to add post to user!');
             }
-            console.log(user);
             return user;
         },
         addComment: async (parent, {postId, body, userId}) => {
@@ -163,15 +166,15 @@ const resolvers = {
             if (!comment) {
                 throw new Error('Failed to create comment!');
             }
-            const post = Post.findOneAndUpdate({ _id: postId }, { $addToSet: { comments: comment._id } }, { new: true });
+            const post = await Post.findOneAndUpdate({ _id: postId }, { $addToSet: { comments: comment } }, { new: true });
             if (!post) {
                 throw new Error('Failed to add comment to post!');
             }
-            const user = User.findOneAndUpdate({ _id: userId }, { $addToSet: { comments: comment._id } }, { new: true });
+            const user = await User.findOneAndUpdate({ _id: userId }, { $addToSet: { comments: comment } }, { new: true });
             if (!user) {
                 throw new Error('Failed to add comment to user!');
             }
-            return { status: 'success', comment };
+            return comment;
         },
         addFriend: async (parent, {userId, friendId}) => {
             if (!userId || !friendId) {

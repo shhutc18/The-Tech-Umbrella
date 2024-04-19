@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_USER, GET_ANONYMOUS_POSTS } from '../utils/queries';
-import { ADD_POST } from '../utils/mutations';
+import { ADD_POST, ADD_COMMENT } from '../utils/mutations';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -75,6 +75,7 @@ const Homepage = () => {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState({});
   const [savePost] = useMutation(ADD_POST);
+  const [saveComment] = useMutation(ADD_COMMENT);
 
   const handlePostDialogOpen = () => {
     setOpen(true);
@@ -96,16 +97,35 @@ const Homepage = () => {
           category: category,
         },
         onCompleted: (data) => {
-          setUser(data.addPost);
+          console.log(data);
         },
         onError: (error) => {
           console.error(error);
         },
       });
-      handlePostDialogClose();
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleCommentSubmit = (post) => async (e) => {
+    e.preventDefault();
+    const commentBody = e.target[0].value;
+    console.log(commentBody, post);
+    await saveComment({
+      variables: {
+        postId: post._id,
+        body: commentBody,
+        userId: user._id,
+      },
+      onCompleted: (data) => {
+        setUser(data.addPost);
+      },
+      onError: (error) => {
+        console.error(error);
+      },
+    });
+
   };
 
   const categories = ['Software', 'Hardware', 'Coding'];
@@ -219,7 +239,7 @@ const Homepage = () => {
             </ListItem>
           </List>
         ))}
-        <form className={classes.commentForm}>
+        <form className={classes.commentForm} onSubmit={handleCommentSubmit(post)}>
           <TextField label="New Comment" className={classes.commentInput} />
           <Button variant="contained" color="primary" type="submit">Submit</Button>
         </form>
