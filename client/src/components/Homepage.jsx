@@ -229,7 +229,7 @@ const Homepage = () => {
               <ListItemText primary={comment.username} />
               <ListItemText primary={comment.body} />
             </ListItem>
-          </List>
+            </List>
             ))}
             <form className={classes.commentForm} onSubmit={handleCommentSubmit(post)}>
               <TextField label="New Comment" className={classes.commentInput} />
@@ -237,10 +237,10 @@ const Homepage = () => {
             </form>
           </Typography>
         </CardContent>
-      </Card>
-    ))}
-    </div>
-  </Paper>
+        </Card>
+      ))}
+      </div>
+    </Paper>
   );
 }
 
