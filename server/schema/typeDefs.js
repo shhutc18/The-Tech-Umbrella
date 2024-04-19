@@ -42,7 +42,7 @@ const typeDefs = `
         login(username: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
         addPost(userId: ID!, title: String!, body: String!, category: String!): User
-        addComment(postId: ID!, body: String!, username: ID!): Comment
+        addComment(postId: ID!, body: String!, username: String!): Comment
         addFriend(userId: ID!, friendId: ID!): User
         removeUser(userId: ID!): User
         removePost(postId: ID!): Post
