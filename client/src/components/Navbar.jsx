@@ -46,10 +46,10 @@ const Navbar = () => {
             <RouterLink to="/" className={classes.specialLink}>The Tech Umbrella</RouterLink>
           </Typography>
           <Button color="inherit">
-            <RouterLink to="/Browse" className={classes.link}>Browse</RouterLink>
+            <RouterLink to="/" className={classes.link}>Home</RouterLink>
           </Button>
           <Button color="inherit">
-            <RouterLink to="/" className={classes.link}>Home</RouterLink>
+            <RouterLink to="/Browse" className={classes.link}>Browse</RouterLink>
           </Button>
           {!user.username && 
             <Button color="inherit">
