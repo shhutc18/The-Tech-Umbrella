@@ -118,9 +118,8 @@ const Homepage = () => {
         username: user.username,
       },
       onCompleted: (data) => {
-        setUser(data.addPost);
+        console.log(data);
         e.target[0].value = '';
-
       },
       onError: (error) => {
         console.error(error);
