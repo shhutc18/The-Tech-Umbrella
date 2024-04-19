@@ -153,93 +153,95 @@ const Homepage = () => {
   return (
     <Paper className={classes.paper}>
       <Button variant="contained" color="primary" className={classes.createPostButton} onClick={handlePostDialogOpen}>
-        Create Post
+      Create Post
       </Button>
       {/* Create Post Dialog */}
       <Dialog open={open} onClose={handlePostDialogClose}>
-        <DialogTitle>Create Post</DialogTitle>
-        <DialogContent className={classes.dialogContent}>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Title"
-            type="text"
-            fullWidth
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <TextField
-            margin="dense"
-            label="Body"
-            type="text"
-            fullWidth
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-          />
-          <FormControl className={classes.formControl}>
-            <InputLabel id="category-label">Category</InputLabel>
-            <Select
-              labelId="category-label"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              {categories.map((category, index) => (
-                <MenuItem value={category} key={index}>{category}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </DialogContent>
-        <DialogActions className={classes.dialogActions}>
-          <Button onClick={handlePostDialogClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleSave} color="primary">
-            Save
-          </Button>
-        </DialogActions>
+      <DialogTitle>Create Post</DialogTitle>
+      <DialogContent className={classes.dialogContent}>
+        <TextField
+        autoFocus
+        margin="dense"
+        label="Title"
+        type="text"
+        fullWidth
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        />
+        <TextField
+        margin="dense"
+        label="Body"
+        type="text"
+        fullWidth
+        value={body}
+        onChange={(e) => setBody(e.target.value)}
+        />
+        <FormControl className={classes.formControl}>
+        <InputLabel id="category-label">Category</InputLabel>
+        <Select
+          labelId="category-label"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          {categories.map((category, index) => (
+          <MenuItem value={category} key={index}>{category}</MenuItem>
+          ))}
+        </Select>
+        </FormControl>
+      </DialogContent>
+      <DialogActions className={classes.dialogActions}>
+        <Button onClick={handlePostDialogClose} color="primary">
+        Cancel
+        </Button>
+        <Button onClick={handleSave} color="primary">
+        Save
+        </Button>
+      </DialogActions>
       </Dialog>
       {/* Browsing Posts */}
       <Typography component="h1" variant="h5" className={classes.welcomeText}>
-        Welcome to The Tech Umbrella! Explore all blog posts here.
+      Welcome to The Tech Umbrella! Explore all blog posts here.
       </Typography>
+      <div style={{ width: '85%' }}>
       {posts.length > 0 && posts.map((post, index) => (
-  <Card className={classes.card} key={index}>
-    <CardContent>
-      <Typography variant="h5" component="h2">
-        {post.title}
-      </Typography>
-      <Typography color="textSecondary">
-        {post.category}
-      </Typography>
-      <Typography variant="body2" component="p">
-        {post.body}
-      </Typography>
-      <Typography variant="body2" color="textSecondary">
-        Author: {post.author}
-      </Typography>
-      <IconButton className={classes.likeButton}>
-        <FavoriteIcon />
-      </IconButton>
-      <Typography variant="body2" component="div" className={classes.commentSection}>
-        <Typography variant="h6">Comments</Typography>
-        {post.comments.map((comment, index) => (
-          <List key={index}>
+        <Card className={classes.card} key={index}>
+        <CardContent>
+          <Typography variant="h5" component="h2">
+          {post.title}
+          </Typography>
+          <Typography color="textSecondary">
+          {post.category}
+          </Typography>
+          <Typography variant="body2" component="p">
+          {post.body}
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+          Author: {post.author}
+          </Typography>
+          <IconButton className={classes.likeButton}>
+          <FavoriteIcon />
+          </IconButton>
+          <Typography variant="body2" component="div" className={classes.commentSection}>
+          <Typography variant="h6">Comments</Typography>
+          {post.comments.map((comment, index) => (
+            <List key={index}>
             <ListItem>
               <ListItemText primary={comment.username} />
               <ListItemText primary={comment.body} />
             </ListItem>
           </List>
-        ))}
-        <form className={classes.commentForm} onSubmit={handleCommentSubmit(post)}>
-          <TextField label="New Comment" className={classes.commentInput} />
-          <Button variant="contained" color="primary" type="submit">Submit</Button>
-        </form>
-      </Typography>
-    </CardContent>
-  </Card>
-))}
-    </Paper>
+            ))}
+            <form className={classes.commentForm} onSubmit={handleCommentSubmit(post)}>
+              <TextField label="New Comment" className={classes.commentInput} />
+              <Button variant="contained" color="primary" type="submit">Submit</Button>
+            </form>
+          </Typography>
+        </CardContent>
+      </Card>
+    ))}
+    </div>
+  </Paper>
   );
-};
+}
 
 export default Homepage;
