@@ -152,6 +152,9 @@ const Homepage = () => {
 
   return (
     <Paper className={classes.paper}>
+      <Typography component="h1" variant="h5" className={classes.welcomeText}>
+      Welcome to The Tech Umbrella! Explore all blog posts here.
+      </Typography>
       <Button variant="contained" color="primary" className={classes.createPostButton} onClick={handlePostDialogOpen}>
       Create Post
       </Button>
@@ -199,9 +202,6 @@ const Homepage = () => {
       </DialogActions>
       </Dialog>
       {/* Browsing Posts */}
-      <Typography component="h1" variant="h5" className={classes.welcomeText}>
-      Welcome to The Tech Umbrella! Explore all blog posts here.
-      </Typography>
       <div style={{ width: '85%' }}>
       {posts.length > 0 && posts.map((post, index) => (
         <Card className={classes.card} key={index}>
