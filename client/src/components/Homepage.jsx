@@ -235,6 +235,7 @@ const Homepage = () => {
         {post.comments.map((comment, index) => (
           <List key={index}>
             <ListItem>
+              <ListItemText primary={comment.username} />
               <ListItemText primary={comment.body} />
             </ListItem>
           </List>

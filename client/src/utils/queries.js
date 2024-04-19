@@ -10,7 +10,7 @@ export const GET_POST = gql`
             _id
             body
             likes
-            userId
+            username
             postId
         }
         likes
@@ -34,7 +34,7 @@ users {
         _id
         postId
         body
-        userId
+        username
         likes
       }
       likes
@@ -43,7 +43,7 @@ users {
       _id
       postId
       body
-      userId
+      username
       likes
     }
     friends
@@ -67,7 +67,7 @@ query Query($username: String!) {
         body
         likes
         postId
-        userId
+        username
       }
       likes
       title
@@ -78,7 +78,7 @@ query Query($username: String!) {
       _id
       likes
       postId
-      userId
+      username
     }
   }
 }
@@ -95,7 +95,7 @@ query Query($category: String!) {
       body
       likes
       postId
-      userId
+      username
     }
     likes
     title
@@ -116,7 +116,7 @@ query MostLikedPosts {
         _id
         postId
         body
-        userId
+        username
         likes
       }
       likes
@@ -136,7 +136,7 @@ query UserPosts($userId: ID!) {
         _id
         postId
         body
-        userId
+        username
         likes
       }
       likes
@@ -150,7 +150,7 @@ query UserComments($userId: ID!) {
       _id
       postId
       likes
-      userId
+      username
       body
     }
   }
@@ -168,7 +168,7 @@ query SubscribedPosts($userId: ID!) {
         _id
         body
         postId
-        userId
+        username
         likes
       }
       likes
@@ -187,7 +187,7 @@ query Query {
       body
       likes
       postId
-      userId
+      username
     }
     likes
     title

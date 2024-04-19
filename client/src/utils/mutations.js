@@ -12,7 +12,7 @@ export const ADD_USER = gql`
                     body
                     likes
                     postId
-                    userId
+                    username
                 }
                 friends
                 posts {
@@ -46,7 +46,7 @@ export const LOGIN_USER = gql`
                     _id
                     body
                     postId
-                    userId
+                    username
                 }
                 friends
                 posts {
@@ -54,11 +54,11 @@ export const LOGIN_USER = gql`
                     body
                     category
                     comments {
-                    _id
-                    body
-                    likes
-                    postId
-                    userId
+                      _id
+                      body
+                      likes
+                      postId
+                      username
                     }
                     likes
                     title
@@ -90,7 +90,7 @@ mutation Mutation($postId: ID!, $body: String!, $username: String!) {
         body
         likes
         postId
-        userId
+        username
       }
       friends
       posts {
@@ -102,7 +102,7 @@ mutation Mutation($postId: ID!, $body: String!, $username: String!) {
           body
           likes
           postId
-          userId
+          username
         }
         likes
         title
@@ -122,7 +122,7 @@ mutation Mutation($userId: ID!, $title: String!, $body: String!, $category: Stri
       body
       likes
       postId
-      userId
+      username
     }
     email
     friends
@@ -131,7 +131,7 @@ mutation Mutation($userId: ID!, $title: String!, $body: String!, $category: Stri
       body
       category
       comments {
-        userId
+        username
         postId
         likes
         body
@@ -153,7 +153,7 @@ mutation Mutation($commentId: ID!) {
       body
       likes
       postId
-      userId
+      username
     }
   }
     `;
@@ -169,7 +169,7 @@ mutation Mutation($postId: ID!) {
         body
         likes
         postId
-        userId
+        username
       }
       likes
       title
@@ -185,7 +185,7 @@ mutation Mutation($commentId: ID!) {
       body
       likes
       postId
-      userId
+      username
     }
   }
     `;
@@ -199,7 +199,7 @@ mutation Mutation($userId: ID!, $friendId: ID!) {
         body
         likes
         postId
-        userId
+        username
       }
       friends
       posts {
@@ -211,7 +211,7 @@ mutation Mutation($userId: ID!, $friendId: ID!) {
           body
           likes
           postId
-          userId
+          username
         }
         likes
         title
@@ -233,7 +233,7 @@ mutation Mutation($postId: ID!) {
         body
         likes
         postId
-        userId
+        username
       }
       likes
       title
@@ -251,7 +251,7 @@ mutation Mutation($userId: ID!) {
         likes
         body
         postId
-        userId
+        username
       }
       friends
       posts {
@@ -263,7 +263,7 @@ mutation Mutation($userId: ID!) {
           body
           likes
           postId
-          userId
+          username
         }
         likes
         title
