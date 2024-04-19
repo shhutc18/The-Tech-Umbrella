@@ -89,6 +89,7 @@ const Homepage = () => {
   const handleSave = async () => {
     try {
       const userId = Auth.getProfile().data._id;
+      handlePostDialogClose();
       await savePost({
         variables: {
           userId: userId,
@@ -98,6 +99,9 @@ const Homepage = () => {
         },
         onCompleted: (data) => {
           console.log(data);
+          setTitle('');
+          setBody('');
+          setCategory('');
         },
         onError: (error) => {
           console.error(error);
