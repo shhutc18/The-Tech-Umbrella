@@ -85,7 +85,6 @@ const Browse = () => {
       onCompleted: (data) => {
         console.log(data);
         e.target[0].value = '';
-        window.location.reload();
       },
       onError: (error) => {
         console.error(error);
