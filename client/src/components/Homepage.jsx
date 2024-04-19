@@ -1,6 +1,6 @@
 import { makeStyles, Paper, Typography, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem, InputLabel, FormControl, Card, CardContent, IconButton, List, ListItem, ListItemText } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_USER, GET_ANONYMOUS_POSTS } from '../utils/queries';
@@ -67,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Homepage = () => {
   const classes = useStyles();
-
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -136,6 +135,7 @@ const Homepage = () => {
   const categories = ['Software', 'Hardware', 'Coding'];
 
   useQuery(GET_USER, {
+    skip: Auth.getProfile(),
     variables: { username: Auth.getProfile().data.username },
     onCompleted: (data) => {
       setUser(data.user);
@@ -146,6 +146,7 @@ const Homepage = () => {
   });
 
   useQuery(GET_ANONYMOUS_POSTS, {
+    skip: Auth.getProfile(),
     onCompleted: (data) => {
       let posts = data.anonymousBrowse;
       setPosts(posts);
