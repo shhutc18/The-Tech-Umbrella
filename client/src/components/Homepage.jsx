@@ -111,7 +111,9 @@ const Homepage = () => {
   const handleCommentSubmit = (post) => async (e) => {
     e.preventDefault();
     const commentBody = e.target[0].value;
-    console.log(commentBody, post);
+    console.log(user.username);
+    console.log(post._id);
+    console.log(commentBody);
     await saveComment({
       variables: {
         postId: post._id,
