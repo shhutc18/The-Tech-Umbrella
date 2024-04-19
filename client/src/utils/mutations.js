@@ -24,7 +24,7 @@ export const ADD_USER = gql`
                     body
                     likes
                     postId
-                    userId
+                    username
                     }
                     likes
                     title
