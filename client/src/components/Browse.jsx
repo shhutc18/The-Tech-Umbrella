@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { makeStyles, Paper, Typography, List, ListItem, ListItemText, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import { makeStyles, Paper, Typography, Card, CardContent, IconButton, TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import { GET_CATEGORY } from '../utils/queries';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -16,18 +17,25 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
-  categoryHeader: {
-    color: '#3f51b5', // Change this to your preferred color
-    fontWeight: 'bold',
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
   browseHeader: {
-    color: '#3f51b5', // Change this to your preferred color
+    color: '#3f51b5',
     fontWeight: 'bold',
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     textAlign: 'center',
+  },
+  card: {
+    marginTop: theme.spacing(2),
+  },
+  commentField: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  submitButton: {
+    marginBottom: theme.spacing(2),
+  },
+  liked: {
+    color: 'red',
   },
 }));
 
@@ -48,10 +56,20 @@ const Browse = () => {
     },
   }, [category]);
 
-  // logs posts for testing can remove when done
-  useEffect(() => {
-    console.log(posts);
-  }, [posts]);
+  const [comment, setComment] = useState('');
+
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+    // Here you would handle the comment submission logic
+    console.log(comment);
+    setComment('');
+  };
+
+  const [liked, setLiked] = useState(false);
+
+  const handleLike = () => {
+    setLiked(!liked);
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -70,6 +88,42 @@ const Browse = () => {
           ))}
         </Select>
       </FormControl>
+      {posts.map((post, index) => (
+        <Card className={classes.card} key={index}>
+          <CardContent>
+            <Typography variant="h5" component="h2">
+              {post.title}
+            </Typography>
+            <Typography color="textSecondary">
+              {post.category}
+            </Typography>
+            <Typography variant="body2" component="p">
+              {post.body}
+            </Typography>
+            <IconButton className={classes.likeButton} onClick={handleLike}>
+              <FavoriteIcon className={liked ? classes.liked : ''} />
+            </IconButton>
+            <form onSubmit={handleCommentSubmit}>
+              <TextField
+                className={classes.commentField}
+                variant="outlined"
+                fullWidth
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                label="Add a comment"
+              />
+              <Button
+                className={classes.submitButton}
+                type="submit"
+                variant="contained"
+                color="primary"
+              >
+                Submit
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      ))}
     </Paper>
   );
 };
