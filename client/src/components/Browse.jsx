@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { makeStyles, Paper, Typography, Card, CardContent, IconButton, TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import { makeStyles, Paper, Typography, Card, CardContent, IconButton, TextField, Button, Select, MenuItem, FormControl, InputLabel, List, ListItem, ListItemText } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import { GET_CATEGORY } from '../utils/queries';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -121,6 +121,17 @@ const Browse = () => {
                 Submit
               </Button>
             </form>
+            <Typography variant="body2" component="div" className={classes.commentSection}>
+            <Typography variant="h6">Comments</Typography>
+            {post.comments.map((comment, index) => (
+              <List key={index}>
+              <ListItem>
+                <ListItemText primary={comment.username} />
+                <ListItemText primary={comment.body} />
+              </ListItem>
+              </List>
+              ))}
+            </Typography>
           </CardContent>
         </Card>
       ))}
