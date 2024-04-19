@@ -111,9 +111,6 @@ const Homepage = () => {
   const handleCommentSubmit = (post) => async (e) => {
     e.preventDefault();
     const commentBody = e.target[0].value;
-    console.log(user.username);
-    console.log(post._id);
-    console.log(commentBody);
     await saveComment({
       variables: {
         postId: post._id,
@@ -122,6 +119,8 @@ const Homepage = () => {
       },
       onCompleted: (data) => {
         setUser(data.addPost);
+        e.target[0].value = '';
+
       },
       onError: (error) => {
         console.error(error);
@@ -151,16 +150,6 @@ const Homepage = () => {
       console.error(error);
     },
   });
-
-  // logs user and posts for testing can remove when done
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
-  useEffect(() => {
-    console.log(posts);
-  }, [posts]);
-
 
   return (
     <Paper className={classes.paper}>
