@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { makeStyles, Paper, Typography, Card, CardContent, IconButton, TextField, Button, Select, MenuItem, FormControl, InputLabel, List, ListItem, ListItemText } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import { GET_CATEGORY } from '../utils/queries';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import { useMutation } from '@apollo/client';
+import { ADD_COMMENT } from '../utils/mutations';
+import { GET_USER } from '../utils/queries';
+import Auth from '../utils/auth';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -44,6 +48,9 @@ const Browse = () => {
   const [category, setCategory] = useState('');
   const categories = ['Software', 'Hardware', 'Coding'];
   const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState({});
+
+  const [saveComment] = useMutation(ADD_COMMENT);
 
   useQuery(GET_CATEGORY, {
     variables: { category },
@@ -56,13 +63,34 @@ const Browse = () => {
     },
   }, [category]);
 
-  const [comment, setComment] = useState('');
+  useQuery(GET_USER, {
+    variables: { username: Auth.getProfile().data.username },
+    onCompleted: (data) => {
+      setUser(data.user);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
 
-  const handleCommentSubmit = (e) => {
+  const handleCommentSubmit = (post) => async (e) => {
     e.preventDefault();
-    // Here you would handle the comment submission logic
-    console.log(comment);
-    setComment('');
+    const commentBody = e.target[0].value;
+    await saveComment({
+      variables: {
+        postId: post._id,
+        body: commentBody,
+        username: user.username,
+      },
+      onCompleted: (data) => {
+        console.log(data);
+        e.target[0].value = '';
+        window.location.reload();
+      },
+      onError: (error) => {
+        console.error(error);
+      },
+    });
   };
 
   const [liked, setLiked] = useState(false);
@@ -103,13 +131,11 @@ const Browse = () => {
             <IconButton className={classes.likeButton} onClick={handleLike}>
               <FavoriteIcon className={liked ? classes.liked : ''} />
             </IconButton>
-            <form onSubmit={handleCommentSubmit}>
+            <form onSubmit={handleCommentSubmit(post)}>
               <TextField
                 className={classes.commentField}
                 variant="outlined"
                 fullWidth
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
                 label="Add a comment"
               />
               <Button
