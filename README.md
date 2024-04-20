@@ -28,7 +28,7 @@ This application allows users to make posts about anything technology related, w
 
 ## Installation
 
-None required. You can view the deployed application here:
+None required.
 
 ## Usage
 
@@ -44,11 +44,12 @@ This application was created by Chase Seeberger, Will Schickler, Shelby Hutchins
 
 ## Link
 
-GitHub repository: https://github.com/shhutc18/The-Tech-Umbrella
-Live site:
+- GitHub repository: https://github.com/shhutc18/The-Tech-Umbrella
+- Live site: https://the-tech-umbrella.onrender.com
 
 ## Screenshot
 
+<img src="/client/src/assets/images/blog.png">
 
 ## Questions
 
