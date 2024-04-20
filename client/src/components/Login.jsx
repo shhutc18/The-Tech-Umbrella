@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     padding: theme.spacing(2),
-    backgroundColor: 'rgba(218, 159, 245, 0.9)',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
   },
   form: {
     width: '70%',
