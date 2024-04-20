@@ -8,12 +8,14 @@ import { ADD_POST, ADD_COMMENT } from '../utils/mutations';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    margin: theme.spacing(4),
+    margin: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: theme.spacing(2),
-    backgroundColor: 'rgba(218, 159, 245, 0.9)',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    borderRadius: '15px',
+    boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.2)',
   },
   section: {
     marginTop: theme.spacing(4),
@@ -34,19 +36,23 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   welcomeText: {
-    color: '#3f51b5',
+    color: 'darkblue',
     fontWeight: 'bold',
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(4),
     marginBottom: theme.spacing(2),
+    textAlign: 'center',
   },
   categoryHeader: {
-    color: '#3f51b5',
+    color: 'darkblue',
     fontWeight: 'bold',
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
+    textAlign: 'center',
   },
   card: {
     marginTop: theme.spacing(2),
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: '10px',
   },
   likeButton: {
     color: 'red',
@@ -60,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   commentInput: {
-    flex: 1,
+    flexGrow: 1,
     marginRight: theme.spacing(2),
   },
 }));
@@ -146,7 +152,6 @@ const Homepage = () => {
   });
 
   useQuery(GET_ANONYMOUS_POSTS, {
-    skip: Auth.getProfile(),
     onCompleted: (data) => {
       let posts = data.anonymousBrowse;
       setPosts(posts);
