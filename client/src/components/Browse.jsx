@@ -10,26 +10,30 @@ import Auth from '../utils/auth';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    margin: theme.spacing(4),
+    margin: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: theme.spacing(2),
-    backgroundColor: 'rgba(218, 159, 245, 0.9)',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    borderRadius: '15px',
+    boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.2)',
   },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
   },
   browseHeader: {
-    color: '#3f51b5',
+    color: 'darkblue',
     fontWeight: 'bold',
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(4),
     marginBottom: theme.spacing(2),
     textAlign: 'center',
   },
   card: {
     marginTop: theme.spacing(2),
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: '10px',
   },
   commentField: {
     marginTop: theme.spacing(2),
@@ -40,6 +44,18 @@ const useStyles = makeStyles((theme) => ({
   },
   liked: {
     color: 'red',
+  },
+  commentSection: {
+    marginTop: theme.spacing(2),
+  },
+  commentForm: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  commentInput: {
+    flexGrow: 1,
+    marginRight: theme.spacing(2),
   },
 }));
 
