@@ -135,16 +135,15 @@ const Homepage = () => {
         console.error(error);
       },
     });
-
   };
 
   const categories = ['Software', 'Hardware', 'Coding'];
 
   useQuery(GET_USER, {
-    skip: Auth.getProfile(),
     variables: { username: Auth.getProfile().data.username },
     onCompleted: (data) => {
-      setUser(data.user);
+      const userData = data.user;
+      setUser(userData);
     },
     onError: (error) => {
       console.error(error);
@@ -227,7 +226,7 @@ const Homepage = () => {
           {post.body}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-          Author: {post.author}
+          Author: {post.userId}
           </Typography>
           <IconButton className={classes.likeButton}>
           <FavoriteIcon />
