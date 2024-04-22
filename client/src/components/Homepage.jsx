@@ -1,6 +1,7 @@
 import { makeStyles, Paper, Typography, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem, InputLabel, FormControl, Card, CardContent, IconButton, List, ListItem, ListItemText } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_USER, GET_ANONYMOUS_POSTS } from '../utils/queries';
@@ -82,6 +83,26 @@ const Homepage = () => {
   const [savePost] = useMutation(ADD_POST);
   const [saveComment] = useMutation(ADD_COMMENT);
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkUser = async () => {
+      try {
+        const profile = await Auth.getProfile();
+        console.log(profile);
+        if (!profile.data._id) {
+          navigate('/login');
+        } else {
+          setUser(profile.data);
+        }
+      } catch (error) {
+        navigate('/login');
+      }
+    };
+  
+    checkUser();
+  }, []);
+
   const handlePostDialogOpen = () => {
     setOpen(true);
   };
@@ -139,8 +160,10 @@ const Homepage = () => {
 
   const categories = ['Software', 'Hardware', 'Coding'];
 
-  useQuery(GET_USER, {
-    variables: { username: Auth.getProfile().data.username },
+  const username = Auth.getProfile()?.data?.username;
+
+  const { data, error } = useQuery(GET_USER, {
+    variables: { username },
     onCompleted: (data) => {
       const userData = data.user;
       setUser(userData);
@@ -148,7 +171,17 @@ const Homepage = () => {
     onError: (error) => {
       console.error(error);
     },
+    enabled: !!username,
   });
+  
+  useEffect(() => {
+    if (!username) {
+      // Redirect to login or handle the unauthenticated state
+      navigate('/login');
+    }
+  }, [username]);
+
+
 
   useQuery(GET_ANONYMOUS_POSTS, {
     onCompleted: (data) => {

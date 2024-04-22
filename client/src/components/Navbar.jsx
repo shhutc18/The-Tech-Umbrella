@@ -64,12 +64,16 @@ const Navbar = () => {
         </Typography>
 
         <Hidden smDown>
+        {user.username && 
           <Button color="inherit">
             <RouterLink to="/" className={classes.link}>Home</RouterLink>
           </Button>
+        }
+        {user.username && 
           <Button color="inherit">
             <RouterLink to="/Browse" className={classes.link}>Browse</RouterLink>
           </Button>
+        }
           {!user.username && 
             <Button color="inherit">
               <RouterLink to="/Login" className={classes.link}>Sign In</RouterLink>

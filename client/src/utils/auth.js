@@ -3,7 +3,11 @@ import decode from 'jwt-decode';
 class AuthService {
   getProfile() {
     try {
-      return decode(this.getToken());
+      const token = this.getToken();
+      if (!token || token === undefined || token === null) {
+        return false;
+      }
+      return decode(token);
     } catch {
       return null;
     }
@@ -30,10 +34,10 @@ class AuthService {
 
   getToken() {
     const token = localStorage.getItem('id_token');
-    if (!token || token === 'undefined') {
+    if (!token || token === undefined || token === null) {
       return false;
     }
-    return localStorage.getItem('id_token');
+    return token;
   }
 
   login(idToken) {
